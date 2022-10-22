@@ -2,14 +2,17 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const fs = require("fs");
+const dotenv = require("dotenv");
 
+dotenv.config();
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || process.env.LOCAL_PORT;
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use((req, res, next) => {
 
-    const allowedOrigins = ['http://localhost:3000', 'https://yk-image-uploader.herokuapp.com'];
+    const allowedOrigins = [process.env.LOCAL_FRONTEND_URL, process.env.FRONTEND_URL];
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
