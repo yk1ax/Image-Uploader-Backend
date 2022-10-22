@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use((req, res, next) => {
 
-    const allowedOrigins = [process.env.LOCAL_FRONTEND_URL, process.env.FRONTEND_URL];
+    const allowedOrigins = [process.env.FRONTEND_URL || process.env.LOCAL_FRONTEND_URL];
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
